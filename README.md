@@ -54,8 +54,23 @@ Kittygram — это полноценное социальное приложе�
    cd kittygram_final
 2. **Создайте файл .env в корне проекта:**
    ```bash
-   cp .env.example .env
+   touch. env
 3. **Заполните переменные окружения.**
+   ```bash
+   # Django Settings
+   SECRET_KEY=
+   DEBUG=False
+   ALLOWED_HOSTS=localhost,127.0.0.1
+   # Database
+   POSTGRES_DB=django
+   POSTGRES_USER=django
+   POSTGRES_PASSWORD=
+   DB_HOST=db
+   DB_PORT=5432
+   # Optional: Telegram Notifications
+   TELEGRAM_TOKEN=your-telegram-bot-token
+   TELEGRAM_TO=your-telegram-chat-id
+   
 4. **Запустите проект:**
    ```bash
    docker compose -f docker-compose.production.yml up -d
