@@ -54,11 +54,11 @@ Kittygram — это полноценное социальное приложе�
    cd kittygram_final
 2. **Создайте файл .env в корне проекта:**
    ```bash
-   touch. env
+   touch .env
 3. **Заполните переменные окружения.**
    ```bash
    # Django Settings
-   SECRET_KEY=
+   SECRET_KEY=Your_secret_key
    DEBUG=False
    ALLOWED_HOSTS=localhost,127.0.0.1
    # Database
