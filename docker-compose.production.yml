@@ -1,0 +1,52 @@
+volumes:
+  pg_data:
+  static:
+  media:
+
+services:
+  db:
+    image: postgres:13
+    env_file: .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - kittygram_network
+
+  backend:
+    image: goodwiine/kittygram_backend:latest
+    env_file: .env
+    volumes:
+      - static:/app/static
+      - media:/app/media
+    depends_on:
+      - db
+    networks:
+      - kittygram_network
+
+  frontend:
+    image: goodwiine/kittygram_frontend:latest
+    volumes:
+      - static:/static
+    command: sh -c "npm run build && cp -r /app/build/. /static/ && chown -R www-data:www-data /static/"
+    networks:
+      - kittygram_network
+    restart: "no"
+    depends_on:
+      - backend
+
+  gateway:
+    image: goodwiine/kittygram_gateway:latest
+    ports:
+      - 9000:80
+    volumes:
+      - static:/staticfiles/
+      - media:/media
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - kittygram_network
+
+networks:
+  kittygram_network:
+    driver: bridge
